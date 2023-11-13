@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "u9DsDTeyUBfguqvd5NyQl7wb59F9O+YdkAnEtNC7c2/6WQ7HrouASQvEe3h4ayA1711AHFA789Qt9F6mv12LKA==",
+  "dgSpecHash": "eKAhE8rK/OWA9VrPIByTuvpW5KrJgLnN5auE+/WffXPx/C7Hdt3nzUPUOABSn18KRpZH6ZPk+XnR1JQr8DNy8Q==",
   "success": true,
   "projectFilePath": "/Users/saileshkarki/Desktop/Integrify_Assignment/E-Library/E-Library-Web-App/backend/WebApi.WebApi/WebApi.WebApi.csproj",
   "expectedPackageFiles": [
+    "/Users/saileshkarki/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/saileshkarki/.nuget/packages/microsoft.aspnetcore.openapi/7.0.5/microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
+    "/Users/saileshkarki/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/saileshkarki/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/saileshkarki/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/saileshkarki/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
