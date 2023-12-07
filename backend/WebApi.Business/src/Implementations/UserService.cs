@@ -38,5 +38,15 @@ namespace WebApi.Business.src.Implementations
             var created = await _userRepo.CreateOne(entity);
             return _mapper.Map<UserReadDto>(created);
         }
+
+        public async Task<UserReadDto> CreateAdmin(UserCreateDto userCreate)
+        {
+            var entity = _mapper.Map<User>(userCreate);
+            PasswordService.HashPassword(userCreate.Password, out var hashedPassword, out var salt);
+            entity.Salt = salt;
+            var created = await _userRepo.CreateAdmin(entity);
+            return _mapper.Map<UserReadDto>(created);
+
+        }
     }
 }
