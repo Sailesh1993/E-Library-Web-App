@@ -39,6 +39,7 @@ namespace WebApi.Controller.src.Controller
             }
         }
 
+        [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto userCreateDto)
         {
             var createdObject = await _userService.CreateAdmin(userCreateDto);

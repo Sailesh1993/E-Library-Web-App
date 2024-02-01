@@ -5,7 +5,7 @@ using WebApi.Domain.src.Shared;
 namespace WebApi.Controller.src.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]s")]
     public class CrudController <T, TReadDto, TCreateDto, TUpdateDto> : ControllerBase
     {
         private readonly IBaseService <T, TReadDto, TCreateDto, TUpdateDto> _baseService;
@@ -22,7 +22,7 @@ namespace WebApi.Controller.src.Controller
             return Ok(list);
         }
 
-        [HttpGet("{id: Guid}")]
+        [HttpGet("{id:Guid}")]
         public virtual async Task<ActionResult<TReadDto>> GetOneById([FromRoute] Guid id)
         {
             var foundItem = await _baseService.GetOneById(id);

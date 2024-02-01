@@ -27,7 +27,7 @@ namespace WebApi.Business.src.Implementations
             catch (Exception ex)
             {
                 
-                throw CustomErrorHandler.CreateEntityException();;
+                throw CustomErrorHandler.CreateEntityException();
             }
         }
 
