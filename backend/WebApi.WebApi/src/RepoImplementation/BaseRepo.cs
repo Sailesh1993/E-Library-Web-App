@@ -5,7 +5,6 @@ namespace WebApi.WebApi.src.RepoImplementation
 {
     public class BaseRepo<T> : IBaseRepo<T> where T : class
     {
-
         
         public Task<T> CreateOne(T entity)
         {
