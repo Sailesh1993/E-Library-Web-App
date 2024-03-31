@@ -1,34 +1,49 @@
+using Microsoft.EntityFrameworkCore;
 using WebApi.Domain.src.Abstractions;
 using WebApi.Domain.src.Shared;
+using WebApi.WebApi.src.Database;
 
 namespace WebApi.WebApi.src.RepoImplementation
 {
     public class BaseRepo<T> : IBaseRepo<T> where T : class
     {
+        private readonly DbSet<T> _dbSet;
+        private readonly DatabaseContext _context;
+        public BaseRepo(DatabaseContext dbContext)
+        {
+            _dbSet = dbContext.Set<T>();
+            _context = dbContext;
+        }
         
-        public Task<T> CreateOne(T entity)
+        public virtual async Task<T> CreateOne(T entity)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task<bool> DeleteOneById(T entity)
+        public async Task<bool> DeleteOneById(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<T>> GetAll(QueryOptions queryOptions)
+        public async Task<IEnumerable<T>> GetAll(QueryOptions queryOptions)
         {
-            throw new NotImplementedException();
+            return await _dbSet.ToArrayAsync();
         }
 
-        public Task<T?> GetOneById(Guid id)
+        public virtual async Task<T?> GetOneById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id);
         }
 
-        public Task<T?> UpdateOneById(T updatedEntity)
+        public async Task<T?> UpdateOneById(T updatedEntity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(updatedEntity);
+            await _context.SaveChangesAsync();
+            return updatedEntity;
         }
     }
 }
