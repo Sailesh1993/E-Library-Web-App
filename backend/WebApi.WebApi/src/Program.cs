@@ -1,7 +1,23 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using WebApi.Business.src.Abstractions;
+using WebApi.Business.src.Implementations;
+using WebApi.Domain.src.Abstractions;
+using WebApi.WebApi.src.Database;
+using WebApi.WebApi.src.RepoImplementation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Automapper DI
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+// Add db Context
+builder.Services.AddDbContext<DatabaseContext>();
+
+// Add Service DI
+builder.Services
+.AddScoped<IUserRepo, UserRepo>()
+.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 

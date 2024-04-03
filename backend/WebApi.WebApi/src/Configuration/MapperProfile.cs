@@ -4,7 +4,7 @@ using WebApi.Domain.src.Entities;
 
 namespace WebApi.WebApi.src.Configuration
 {
-    public class MapperProfile:Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
