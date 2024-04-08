@@ -36,9 +36,26 @@ namespace WebApi.Business.src.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TReadDto>> GetAll(QueryOptions queryOptions)
+        public async Task<IEnumerable<TReadDto>> GetAll(QueryOptions queryOptions)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var allLists = await _baseRepo.GetAll(queryOptions);
+                var dtoAllLists = _mapper.Map<IEnumerable<TReadDto>>(allLists);
+                if(dtoAllLists.Any())
+                {
+                    return dtoAllLists;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            catch (System.Exception)
+            {
+                
+                throw new NotImplementedException();
+            }
         }
 
         public Task<TReadDto> GetOneById(Guid id)
