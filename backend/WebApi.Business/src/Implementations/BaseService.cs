@@ -31,9 +31,19 @@ namespace WebApi.Business.src.Implementations
             }
         }
 
-        public Task<bool> DeleteOneById(Guid id)
+        public async Task<bool> DeleteOneById(Guid id)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Hello");
+            var foundItem = await _baseRepo.GetOneById(id);
+            if(foundItem is not null)
+            {
+                _baseRepo.DeleteOneById(foundItem);
+                return true;
+            }
+            else
+            {
+                throw CustomErrorHandler.NotFoundException();
+            }
         }
 
         public async Task<IEnumerable<TReadDto>> GetAll(QueryOptions queryOptions)
@@ -79,9 +89,27 @@ namespace WebApi.Business.src.Implementations
             }
         }
 
-        public Task<TReadDto> UpdateOneById(Guid id, TUpdateDto updated)
+        public async Task<TReadDto> UpdateOneById(Guid id, TUpdateDto updated)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var foundItem = await _baseRepo.GetOneById(id);
+                if(foundItem == null)
+                {
+                    throw new Exception($"Item with {id} not found");
+                }
+                else
+                {
+                    _mapper.Map(updated, foundItem);
+                    await _baseRepo.UpdateOneById(foundItem);
+                    return _mapper.Map<TReadDto>(foundItem);
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw CustomErrorHandler.NotFoundException();
+            }
         }
     }
 }
