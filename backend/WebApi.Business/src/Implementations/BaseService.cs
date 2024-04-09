@@ -24,7 +24,7 @@ namespace WebApi.Business.src.Implementations
                 var entity = await _baseRepo.CreateOne(_mapper.Map<T>(createDto));
                 return _mapper.Map<TReadDto>(entity);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
                 throw CustomErrorHandler.CreateEntityException();
@@ -48,19 +48,35 @@ namespace WebApi.Business.src.Implementations
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    throw CustomErrorHandler.NotFoundException("There is no item in the Repo");
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 
-                throw new NotImplementedException();
+                throw CustomErrorHandler.NotFoundException();
             }
         }
 
-        public Task<TReadDto> GetOneById(Guid id)
+        public async Task<TReadDto> GetOneById(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entity = _mapper.Map<TReadDto>(await _baseRepo.GetOneById(id));
+                if(entity is not null)
+                {
+                    return entity;
+                }
+                else
+                {
+                    throw new Exception($"item with {id} id is not found");
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw CustomErrorHandler.NotFoundException();
+            }
         }
 
         public Task<TReadDto> UpdateOneById(Guid id, TUpdateDto updated)

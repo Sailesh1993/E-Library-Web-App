@@ -11,7 +11,7 @@ namespace WebApi.Business.src.Common
             ErrorMessage = errorMessage;
         }
 
-        public static CustomErrorHandler NotFoundExecution(string message = "Item not found")
+        public static CustomErrorHandler NotFoundException(string message = "Item not found")
         {
             throw new CustomErrorHandler(500, message);
         }
