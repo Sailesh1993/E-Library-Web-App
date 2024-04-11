@@ -18,7 +18,7 @@ namespace WebApi.Controller.src.Controller
             _mapper = mapper;
         }
 
-        [HttpDelete("password")]
+        /* [HttpDelete("password")]
         public async Task<ActionResult<UserReadDto>> UpdatePassword( 
             [FromQuery] Guid userId, [FromBody] PasswordUpdateDto passwordUpdateDto
             )
@@ -37,7 +37,7 @@ namespace WebApi.Controller.src.Controller
             {
                 return StatusCode(500, $"An error occured: {ex.Message}");
             }
-        }
+        } */
 
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto userCreateDto)
@@ -46,9 +46,9 @@ namespace WebApi.Controller.src.Controller
             return CreatedAtAction(nameof(CreateAdmin), createdObject);
         }
         
-        public override async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid Id)
+        public override async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id)
         {
-            return await base.DeleteOneById(Id);
+            return await base.DeleteOneById(id);
         }
 
         public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll([FromQuery] QueryOptions queryOptions)

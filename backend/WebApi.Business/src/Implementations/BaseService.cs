@@ -33,11 +33,10 @@ namespace WebApi.Business.src.Implementations
 
         public async Task<bool> DeleteOneById(Guid id)
         {
-            Console.WriteLine("Hello");
             var foundItem = await _baseRepo.GetOneById(id);
             if(foundItem is not null)
             {
-                _baseRepo.DeleteOneById(foundItem);
+                await _baseRepo.DeleteOneById(foundItem);
                 return true;
             }
             else
