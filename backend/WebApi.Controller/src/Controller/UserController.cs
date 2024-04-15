@@ -18,7 +18,7 @@ namespace WebApi.Controller.src.Controller
             _mapper = mapper;
         }
 
-        /* [HttpDelete("password")]
+        [HttpDelete("password")]
         public async Task<ActionResult<UserReadDto>> UpdatePassword( 
             [FromQuery] Guid userId, [FromBody] PasswordUpdateDto passwordUpdateDto
             )
@@ -37,7 +37,7 @@ namespace WebApi.Controller.src.Controller
             {
                 return StatusCode(500, $"An error occured: {ex.Message}");
             }
-        } */
+        }
 
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto userCreateDto)
