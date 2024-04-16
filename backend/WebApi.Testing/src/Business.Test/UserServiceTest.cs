@@ -1,10 +1,10 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Razor.Language;
 using Moq;
 using WebApi.Business.src.Dtos;
 using WebApi.Business.src.Implementations;
 using WebApi.Domain.src.Abstractions;
 using WebApi.Domain.src.Entities;
+using WebApi.Domain.src.Shared;
 using WebApi.WebApi.src.Configuration;
 
 namespace WebApi.Testing.src.Business.Test
@@ -48,6 +48,42 @@ namespace WebApi.Testing.src.Business.Test
             Assert.Equal(expectedUser.FirstName, result.FirstName);
             Assert.Equal(expectedUser.LastName, result.LastName);
             Assert.Equal(expectedUser.Email, result.Email);
+
+        }
+        [Fact]
+        public async Task GetAll_ReturnsAllUsers_Success()
+        {
+            // Arrange
+            var mockRepo = new Mock<IUserRepo>();
+            var mockMapper = new Mock<IMapper>();
+
+            var users = new List<User>
+            {
+                new User { Id = Guid.NewGuid(), FirstName = "John", LastName = "Doe", Email = "john@gmail.com", Role = Role.Admin},
+                new User { Id = Guid.NewGuid(), FirstName = "Jane", LastName = "Doe", Email = "jane@example.com", Role = Role.User }
+            };
+            var expectedDtos = users.Select(user => new UserReadDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Password = null, // Password should not be exposed in the read DTO
+            Role = user.Role
+        }).ToList();
+
+        mockRepo.Setup(repo => repo.GetAll(It.IsAny<QueryOptions>())).ReturnsAsync(users);
+        mockMapper.Setup(mapper => mapper.Map<IEnumerable<UserReadDto>>(It.IsAny<IEnumerable<User>>())).Returns(expectedDtos);
+
+        var userService = new UserService(mockRepo.Object, mockMapper.Object);
+
+        // Act
+        var result = await userService.GetAll(new QueryOptions());
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(expectedDtos.Count, result.Count());
+        Assert.Equal(expectedDtos, result); 
 
         }
     }
